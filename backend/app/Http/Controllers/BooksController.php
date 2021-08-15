@@ -21,7 +21,7 @@ class BooksController extends Controller
     //本ダッシュボード表示
     public function index()
     {
-        $books = Book::where('user_id', Auth::user()->id)
+        $books = Book::where('user_id', Auth::id())
             ->orderBy('created_at', 'asc')
             ->paginate(3);
         return view('books', [
@@ -30,21 +30,19 @@ class BooksController extends Controller
     }
 
     //更新画面
-    public function edit($book_id)
+    public function edit(Book $book)
     {
-        $books = Book::where('user_id', Auth::user()->id)->findOrFail($book_id);
-        // $books = Book::where('user_id', Auth::user()->id)->find($book_id);
         return view('booksedit', [
-            'book' => $books
+            'book' => $book
         ]);
     }
 
     //更新
-    public function update(Request $request)
+    public function update(Request $request,Book $book)
     {
         //バリデーション
         $validator = Validator::make($request->all(), [
-            'id' => 'required',
+
             'item_name' => 'required|min:3|max:255',
             'item_number' => 'required|min:1|max:3',
             'item_amount' => 'required|min:0|max:6',
@@ -56,19 +54,19 @@ class BooksController extends Controller
                 ->withInput()
                 ->withErrors($validator);
         }
-        $books = Book::find($request->id);
-        $books->user_id = Auth::user()->id;
-        $books->item_name   = $request->item_name;
-        $books->item_number = $request->item_number;
-        $books->item_amount = $request->item_amount;
-        $books->published   = $request->published;
-        $books->save();
+        $book->user_id = Auth::id();
+        $book->item_name   = $request->item_name;
+        $book->item_number = $request->item_number;
+        $book->item_amount = $request->item_amount;
+        $book->published   = $request->published;
+        $book->save();
         return redirect('/');
     }
 
     //登録
     public function store(Request $request)
     {
+        dd($request);
         //バリデーション
         $validator = Validator::make($request->all(), [
             'item_name' => 'required|min:3|max:255',
@@ -103,7 +101,7 @@ class BooksController extends Controller
         $books->published = $request->published;
         $books->save();
 
-        return redirect('/');
+        return redirect('/home');
     }
 
     //削除処理

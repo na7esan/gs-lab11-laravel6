@@ -2,12 +2,12 @@
 | Domain | Method    | URI                    | Name             | Action                                                                 | Middleware   |
 +--------+-----------+------------------------+------------------+------------------------------------------------------------------------+--------------+
 |        | GET|HEAD  | api/user               |                  | Closure                                                                | api,auth:api |
-|        | POST      | books                  | books.store      | App\Http\Controllers\BooksController@store                             | web          |
-|        | GET|HEAD  | books/{book}           | books.show       | App\Http\Controllers\BooksController@show                              | web          |
-|        | PUT|PATCH | books/{book}           | books.update     | App\Http\Controllers\BooksController@update                            | web          |
-|        | DELETE    | books/{book}           | books.destroy    | App\Http\Controllers\BooksController@destroy                           | web          |
-|        | GET|HEAD  | books/{book}/edit      | books.edit       | App\Http\Controllers\BooksController@edit                              | web          |
-|        | GET|HEAD  | home                   | home             | App\Http\Controllers\BooksController@index                             | web          |
+|        | POST      | books                  | books.store      | App\Http\Controllers\BooksController@store                             | web,auth     |
+|        | GET|HEAD  | books/{book}           | books.show       | App\Http\Controllers\BooksController@show                              | web,auth     |
+|        | PUT|PATCH | books/{book}           | books.update     | App\Http\Controllers\BooksController@update                            | web,auth     |
+|        | DELETE    | books/{book}           | books.destroy    | App\Http\Controllers\BooksController@destroy                           | web,auth     |
+|        | GET|HEAD  | books/{book}/edit      | books.edit       | App\Http\Controllers\BooksController@edit                              | web,auth     |
+|        | GET|HEAD  | home                   | home             | App\Http\Controllers\BooksController@index                             | web,auth     |
 |        | GET|HEAD  | login                  | login            | App\Http\Controllers\Auth\LoginController@showLoginForm                | web,guest    |
 |        | POST      | login                  |                  | App\Http\Controllers\Auth\LoginController@login                        | web,guest    |
 |        | POST      | logout                 | logout           | App\Http\Controllers\Auth\LoginController@logout                       | web          |

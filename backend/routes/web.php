@@ -1,8 +1,12 @@
 <?php
 
-// 認証ルート
+
+//Auth
+Auth::routes();
+
+//
 Route::middleware(['auth'])->group(function () {
-    Route::get('/home', 'BooksController@index')->name('home');
+    Route::get('/', 'BooksController@index')->name('home');
     Route::resource('books', BooksController::class)
         ->except(['index', 'create']);
 });
